@@ -39,8 +39,8 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="primary" >
-            <mat-icon matTooltip="toogle" (click)="element.isExpanded = !element.isExpanded">Subject</mat-icon>
+          <button mat-icon-button class="btn_success">
+            <mat-icon matTooltip="toogle" (click)="element.isExpanded = !element.isExpanded">+</mat-icon>
           </button>
       </td>
     </ng-container>

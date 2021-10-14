@@ -50,3 +50,8 @@ tr.student-element-row:not(.student-expanded-row):active {
 .student-element-description-attribution {
   opacity: 0.5;
 }
+
+.btn_success {
+  color: white;
+  background-color: green;
+}
