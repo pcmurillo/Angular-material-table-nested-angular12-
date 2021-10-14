@@ -1,0 +1,78 @@
+<div style="max-width:1024px;padding:20px;margin: 50px auto;">
+
+  <h4>Expand Collapse Single/ Multiple Rows in Angular Material Datatable</h4>
+  <a
+    href="https://www.freakyjolly.com/expand-collapse-single-or-multiple-rows-in-angular-98-material-table-multiple-single/">Find
+    complete tutorial extract for here</a>
+
+  <!-- Master Toggle Button -->
+  <div style="text-align: end;padding: 10px 104px;">
+    <button mat-raised-button color="primary" aria-label="Toogle Row" (click)="toggleTableRows()"> Toggle Rows
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataStudentsList" multiTemplateDataRows>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef> Age </th>
+      <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" >
+            <mat-icon matTooltip="toogle" (click)="element.isExpanded = !element.isExpanded">Subject</mat-icon>
+          </button>
+      </td>
+    </ng-container>
+
+
+    <!-- Template for details row -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedStudentsColumnsList.length">
+
+        <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+          <mat-list>
+            <div mat-subheader>Subjects of {{element.name}}</div>
+            <mat-list-item *ngFor="let subject of element.subjects">
+              <div mat-line>{{subject.name}}</div>
+              <div mat-line> {{subject.type}} | Grade: {{subject.grade}}</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedStudentsColumnsList;sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedStudentsColumnsList;" class="student-element-row"
+      [class.student-expanded-row]="element.isExpanded"></tr>
+
+    <!-- Extra row to show detail content column -->
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="student-detail-row"></tr>
+
+  </table>
+
+
+
+</div>

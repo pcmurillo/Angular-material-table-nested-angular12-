@@ -1,0 +1,83 @@
+<table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>email</th>
+    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef>phone</th>
+    <td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary">
+        <mat-icon
+          matTooltip="toogle"
+          (click)="element.isExpanded = !element.isExpanded"
+          >Subject</mat-icon
+        >
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="expandedDetail">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="columnsToDisplay.length"
+    >
+      <div
+        class="example-element-detail"
+        *ngIf="element.addresses?.data.length"
+        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
+      >
+        <div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
+          <table
+            #innerTables
+            mat-table
+            #innerSort="matSort"
+            [dataSource]="element.addresses"
+            matSort
+          >
+            <ng-container
+              matColumnDef="{{ innerColumn }}"
+              *ngFor="let innerColumn of innerDisplayedColumns"
+            >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ innerColumn }}
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element[innerColumn] }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: innerDisplayedColumns"
+            ></tr>
+          </table>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+  <tr
+    mat-row
+    *matRowDef="let element; columns: columnsToDisplay"
+    class="student-element-row"
+    [class.student-expanded-row]="element.isExpanded"
+  ></tr>
+
+  <!-- Extra row to show detail content column -->
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetail']"
+    class="student-detail-row"
+  ></tr>
+</table>
