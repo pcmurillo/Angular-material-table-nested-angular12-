@@ -26,46 +26,37 @@
       </button>
     </td>
   </ng-container>
-  <ng-container matColumnDef="expandedDetail">
-    <td
-      mat-cell
-      *matCellDef="let element"
-      [attr.colspan]="columnsToDisplay.length"
-    >
-      <div
-        class="example-element-detail"
-        *ngIf="element.addresses?.data.length"
-        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'"
-      >
-        <div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
-          <table
-            #innerTables
-            mat-table
-            #innerSort="matSort"
-            [dataSource]="element.addresses"
-            matSort
-          >
-            <ng-container
-              matColumnDef="{{ innerColumn }}"
-              *ngFor="let innerColumn of innerDisplayedColumns"
-            >
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                {{ innerColumn }}
-              </th>
-              <td mat-cell *matCellDef="let element">
-                {{ element[innerColumn] }}
-              </td>
+   <!-- Template for details row -->
+   <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+
+      <div class="row student-element-detail" [@detailExpand]="element.isExpanded ? 'expanded' : 'collapsed'">
+        <div class="inner-table mat-elevation-z8">
+          <table mat-table [dataSource]="element.addresses">
+            <ng-container matColumnDef="street">
+              <th mat-header-cell *matHeaderCellDef> street </th>
+              <td mat-cell *matCellDef="let element"> {{element.street}} </td>
             </ng-container>
+        
+            <ng-container matColumnDef="zipCode">
+              <th mat-header-cell *matHeaderCellDef> zipCode </th>
+              <td mat-cell *matCellDef="let element"> {{element.zipCode}} </td>
+            </ng-container>
+        
+        
+            <ng-container matColumnDef="city">
+              <th mat-header-cell *matHeaderCellDef> city </th>
+              <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
-            <tr
-              mat-row
-              *matRowDef="let row; columns: innerDisplayedColumns"
-            ></tr>
+            <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns"></tr>
           </table>
         </div>
       </div>
     </td>
   </ng-container>
+  
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
   <tr
     mat-row
