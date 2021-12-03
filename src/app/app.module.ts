@@ -12,6 +12,7 @@ import { TableNestedComponent } from './table-nested/table-nested.component';
 import { HelloComponent } from './hello.component';
 import { DemoMaterialModule } from './material-module.module';
 import { TableDetailComponent } from './table-detail/table-detail.component';
+import { AddRangeComponent } from './add-range/add-range.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TableDetailComponent } from './table-detail/table-detail.component';
     AppComponent,
     TableNestedComponent,
     TableDetailComponent,
-    HelloComponent
+    HelloComponent,
+    AddRangeComponent
   ],
   imports: [
     BrowserModule,

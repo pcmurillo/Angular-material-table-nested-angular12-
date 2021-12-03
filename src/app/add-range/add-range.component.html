@@ -1,0 +1,30 @@
+
+<form [formGroup]="gaugeTitleForm" (ngSubmit)="onSubmit()">
+  
+<input matInput placeholder="First Name" value="" formControlName="firstName"><br>
+<input matInput placeholder="Last Name" value="" formControlName="lastName"><br>
+<input matInput placeholder="Mes Inicio" value="" formControlName="mesInicio"><br>
+<input matInput placeholder="Mes Final" value="" formControlName="mesFinal">
+
+<br>
+<button class="btn btn-primary" (click)="onClone()" type="button">Generar Ejecución y Presupuesto </button>  
+<button class="btn btn-primary" (click)="onLimpiar()" type="button">Limpiar ejecución </button>  
+<table border=1>
+<thead>
+  <tr>
+    <td>Title</td>
+    <td>Name</td>
+    <td>Remove</td>
+  </tr>
+</thead>
+<tbody formArrayName="gaugeTitles" *ngFor="let item of gaugeTitleForm.get('gaugeTitles').controls; let i = index;">
+  <tr [formGroupName]="i">
+     <td><input type="text" formControlName="title"></td>
+     <td><input type="text" formControlName="name"></td>
+     <td><button type="button" (click)="removeRow(i)">X {{i}}</button></td>
+  </tr>
+</tbody>
+</table>
+
+<button type="submit">Submit</button>
+</form>
